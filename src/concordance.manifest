@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: ru.suno.concordance.dlg.FileSelectDialog
+SplashScreen-Image: splash.jpg
