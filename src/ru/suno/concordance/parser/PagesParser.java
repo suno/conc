@@ -13,7 +13,7 @@ public class PagesParser {
     public Collection<ConcPage> parseTextToPages(String allText) {
         Collection<ConcPage> result = new ArrayList<ConcPage>();
                     
-        Pattern pattReference = Pattern.compile("\\d+,\\s+\\d+\\r\\n");
+        Pattern pattReference = Pattern.compile("\\d+,\\s+\\d+\\r");
         Matcher matchReference = pattReference.matcher(allText);
         
         // найти первую ссылку
