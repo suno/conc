@@ -217,7 +217,7 @@ public class PagesProcessor {
                 underScoreWords = underScoreWords.replaceAll("\n", " ");
                 underScoreWords = underScoreWords.trim();                
                 underScoreWords = StringFilter.underLineWords(underScoreWords, w.getSourceWord().trim());               
-                
+
                 outp.append(underScoreWords)
                         .append("\\b ")
                         .append("(")
@@ -228,10 +228,11 @@ public class PagesProcessor {
                         .append("\\b0 ")
                         .append("\r\n");
             }
+            totalCounter = totalCounter + outp.length();
             outp.append("\r\n\r\n");
             
             writer.writeBodyText(outp.toString());
-            totalCounter = totalCounter + outp.length();
+            
             outp.delete(0, outp.length());
         }
         
