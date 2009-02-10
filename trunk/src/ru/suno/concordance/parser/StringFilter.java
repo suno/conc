@@ -61,7 +61,7 @@ public class StringFilter {
     private static boolean isHaveBound(String sentence, int bound) {
         boolean result = false;
         
-        if (bound <= 0) {
+        if (bound < 0) {
             return true;
         }
         
@@ -95,16 +95,10 @@ public class StringFilter {
             //проверить есть ли у этого слова правая и левая граница
             int boundSymbolIndexRight = cursor + word.length();
             int boundSymbolIndexLeft = 0;
-            if (cursor > 0) {
-                boundSymbolIndexLeft = cursor - 1;
-            }                                  
+            boundSymbolIndexLeft = cursor - 1;
             
-            //if (isHaveBound(result, boundSymbolIndexLeft) & isHaveBound(result, boundSymbolIndexRight)) { 
             if (isHaveBound(result, boundSymbolIndexLeft) & isHaveBound(result, boundSymbolIndexRight)) {
-                if (boundSymbolIndexLeft > 0) {
-                    boundSymbolIndexLeft++;
-                }
-                String ul = "\\ul " + result.substring(boundSymbolIndexLeft, boundSymbolIndexRight) + "\\ulnone ";
+                String ul = "\\ul " + result.substring(cursor, boundSymbolIndexRight) + "\\ulnone ";
                 result = result.substring(0, cursor) + ul + result.substring(cursor + word.length());
                 cursor++;
             } else {
@@ -126,6 +120,7 @@ public class StringFilter {
         result = result.replaceAll("\\\"", "doublequote");
         result = result.replaceAll(":", "colon");
         result = result.replaceAll("\\|", "verticalline");
+        result = result.replaceAll("\u03B5", "greek_E");
         
         return result;
     }
