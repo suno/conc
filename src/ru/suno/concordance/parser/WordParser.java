@@ -82,7 +82,7 @@ public class WordParser {
         // отсортировать слова по алфавиту
         // расположить их в алфавитном порядке
         result.addAll(allWords);
-        Collections.sort(result);        
+        Collections.sort(result);
         allWords.clear();
         
         return result;
