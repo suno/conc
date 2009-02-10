@@ -3,11 +3,14 @@ package ru.suno.concordance.utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import ru.suno.concordance.ConcPage;
 import ru.suno.concordance.ConcSentence;
@@ -40,7 +43,7 @@ public class PagesProcessor {
     }
     
     // TODO: replace FileSelectDialog argument with action listener
-    public String processAllDocuments(List<File> srcList) {
+    public synchronized String processAllDocuments(List<File> srcList) {
         String result = "";        
         
         log("Чтение текста из исходных файлов...");
@@ -59,6 +62,14 @@ public class PagesProcessor {
         // разбить ВЕСЬ текст на страницы
         PagesParser pp = new PagesParser();
         Collection<ConcPage> allPages = pp.parseTextToPages(allText);
+        try {
+			FileWriter fw = new FileWriter("c:/1/test.txt");
+			fw.write(allText);
+			fw.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         log("Разбиение текста на страницы завершено!");
         
         log("Разбиение страниц на предложения...");

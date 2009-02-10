@@ -25,15 +25,17 @@ public class MSWordFile implements IWordFile {
 	 * @see ru.suno.concordance.utils.IWordFile#readWordFileContent(java.io.File)
 	 */
     public String readWordFileContent(File inFile) {
-        String result = null;
+    	String result = null;
+        
         InputStream in = null;
         try {
             in = new FileInputStream(inFile);
             in = new BufferedInputStream(in);
             HWPFDocument wordDoc = new HWPFDocument(in);
             WordExtractor extractor = new WordExtractor(wordDoc);
-            result = extractor.getText();
-            //result = extractor.getTextFromPieces();
+
+            result = extractor.getTextFromPieces();
+            
             result = result.replaceAll("\f", "\n\r");
             
             result = StringFilter.convertGreekCharsToUTF(result);
@@ -44,7 +46,7 @@ public class MSWordFile implements IWordFile {
             ex.printStackTrace(System.out);
         }
         // пройдемся по тексту, попробуем найти выделенные жирным шрифтом номера тома/страницы 
-        return result;
+        return result.toString();
     }
     
     /* (non-Javadoc)
