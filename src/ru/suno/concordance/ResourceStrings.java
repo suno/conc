@@ -18,6 +18,9 @@ public class ResourceStrings {
     
     // Error messages here
     public String NOT_A_DIRECTORY = null;
+    
+    public String ERROR_PROBLEM_WITH_PAGES_PARSER = null;
+    public String ERROR_GENERAL = null;
 
     private static ResourceStrings resStrings = null;
     
@@ -42,6 +45,10 @@ public class ResourceStrings {
             CONCORDANCE_DIALOGTITLE = properties.getProperty("CONCORDANCE_DIALOGTITLE");
             WORD_FILES = properties.getProperty("WORD_FILES");
             CREATE_SLOVOFORMCOUNTER = properties.getProperty("CREATE_SLOVOFORMCOUNTER");
+            
+            ERROR_PROBLEM_WITH_PAGES_PARSER = properties.getProperty("ERROR_PROBLEM_WITH_PAGES_PARSER");
+            ERROR_GENERAL = properties.getProperty("ERROR_GENERAL");
+
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             ex.printStackTrace();

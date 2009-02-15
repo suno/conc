@@ -3,19 +3,20 @@ package ru.suno.concordance.utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import ru.suno.concordance.ConcPage;
 import ru.suno.concordance.ConcSentence;
 import ru.suno.concordance.ConcWord;
 import ru.suno.concordance.ConcWordList;
+import ru.suno.concordance.ResourceStrings;
 import ru.suno.concordance.dlg.FileSelectDialog;
 import ru.suno.concordance.parser.PagesParser;
 import ru.suno.concordance.parser.SentenceParser;
@@ -42,6 +43,13 @@ public class PagesProcessor {
     	}
     }
     
+    public static String getStackTrace(Throwable aThrowable) {
+        final Writer result = new StringWriter();
+        final PrintWriter printWriter = new PrintWriter(result);
+        aThrowable.printStackTrace(printWriter);
+        return result.toString();
+    }
+    
     // TODO: replace FileSelectDialog argument with action listener
     public synchronized String processAllDocuments(List<File> srcList) {
         String result = "";        
@@ -61,15 +69,26 @@ public class PagesProcessor {
         log("Разбиение текста на страницы...");
         // разбить ВЕСЬ текст на страницы
         PagesParser pp = new PagesParser();
-        Collection<ConcPage> allPages = pp.parseTextToPages(allText);
-        try {
+        Collection<ConcPage> allPages;
+		try {
+			allPages = pp.parseTextToPages(allText);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log(ResourceStrings.getInstance().ERROR_GENERAL);
+			log(getStackTrace(e));
+			log(ResourceStrings.getInstance().ERROR_PROBLEM_WITH_PAGES_PARSER);
+			return ResourceStrings.getInstance().ERROR_PROBLEM_WITH_PAGES_PARSER;
+		}
+        
+        /*try {
 			FileWriter fw = new FileWriter("c:/1/test.txt");
 			fw.write(allText);
 			fw.close();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
         log("Разбиение текста на страницы завершено!");
         
         log("Разбиение страниц на предложения...");
