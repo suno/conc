@@ -30,7 +30,14 @@ public class TestPageParser extends TestCase {
         log("Разбиение текста на страницы...");
         // разбить ВЕСЬ текст на страницы
         PagesParser pp = new PagesParser();
-        Collection<ConcPage> allPages = pp.parseTextToPages(allText);
+        
+        Collection<ConcPage> allPages = null;
+		try {
+			allPages = pp.parseTextToPages(allText);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
         log("Разбиение текста на страницы завершено!");
         
         FileWriter fileOut = null; 

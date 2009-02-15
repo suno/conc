@@ -10,10 +10,10 @@ import ru.suno.concordance.ConcRef;
 
 public class PagesParser {
     
-    public Collection<ConcPage> parseTextToPages(String allText) {
+    public Collection<ConcPage> parseTextToPages(String allText) throws Exception {
         Collection<ConcPage> result = new ArrayList<ConcPage>();
                     
-        Pattern pattReference = Pattern.compile("\\d+,\\s+\\d+\\r");
+        Pattern pattReference = Pattern.compile("(\\d+),\\s+(\\d+)\\r");
         Matcher matchReference = pattReference.matcher(allText);
         
         // найти первую ссылку
@@ -22,8 +22,11 @@ public class PagesParser {
             int firstRefEnd = matchReference.end();
             // создать ссылку 1
             String reference = allText.substring(matchReference.start(), firstRefEnd);  
-            String volStr = reference.substring(0, reference.indexOf(","));
-            String pageStr = reference.substring(reference.indexOf(",") + 1, reference.length() - (reference.indexOf(",") + 1));
+            //String volStr = reference.substring(0, reference.indexOf(","));
+            //String pageStr = reference.substring(reference.indexOf(",") + 1, reference.length() - (reference.indexOf(",") + 1));
+            String volStr = matchReference.group(1);
+            String pageStr = matchReference.group(2);
+            
             ConcRef ref = new ConcRef(Integer.parseInt(volStr.trim()), Integer.parseInt(pageStr.trim()));
             
             ConcPage page = null;
