@@ -120,7 +120,7 @@ public class SentenceParser {
                 if (!Character.isWhitespace(c) & !Character.isLetterOrDigit(c)) {                
                     if (c == '.') {
                         // проверить, не сокращение ли это...
-                        int startShortPos = sent.getSourceSentence().lastIndexOf(' ', cursor);
+                        int startShortPos = sent.getSourceSentence().trim().lastIndexOf(' ', cursor);
                         if (startShortPos == -1) {
                             startShortPos = 0;
                         }                    
@@ -140,11 +140,14 @@ public class SentenceParser {
                         sent.setBroken(false);
                         break;
                     }
-                }   
-                
-                if (Character.isLetterOrDigit(c)) {
+                } else if (Character.isLetterOrDigit(c)) {
+                	// не нашли точку в конце предложения - значит разрыв на следующую страницу
                     sent.setBroken(true);
                     break;                                    
+                } else {
+                	// все что не относиться к разрывам - не разрывы
+                    sent.setBroken(false);
+                    break; 
                 }
             }
         }
