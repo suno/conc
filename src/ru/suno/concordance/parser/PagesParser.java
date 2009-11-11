@@ -21,9 +21,6 @@ public class PagesParser {
             // нашли первую ссылку, запомнить ее конец
             int firstRefEnd = matchReference.end();
             // создать ссылку 1
-            //String reference = allText.substring(matchReference.start(), firstRefEnd);  
-            //String volStr = reference.substring(0, reference.indexOf(","));
-            //String pageStr = reference.substring(reference.indexOf(",") + 1, reference.length() - (reference.indexOf(",") + 1));
             String volStr = matchReference.group(1);
             String pageStr = matchReference.group(2);
             
@@ -40,9 +37,6 @@ public class PagesParser {
                 result.add(page);
                 // создать очередную найденную ссылку
                 firstRefEnd = matchReference.end();
-                //reference = allText.substring(matchReference.start(), firstRefEnd);  
-                //volStr = reference.substring(0, reference.indexOf(","));
-                //pageStr = reference.substring(reference.indexOf(",") + 1, reference.length() - (reference.indexOf(",")));
                 volStr = matchReference.group(1);
                 pageStr = matchReference.group(2);
                 ref = new ConcRef(Integer.parseInt(volStr.trim()), Integer.parseInt(pageStr.trim()));
